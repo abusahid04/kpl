@@ -705,8 +705,12 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
     try {
       const result = await apiFetch("/auth", {
         method: "POST",
@@ -719,27 +723,102 @@ function AdminLogin({ onLogin }: { onLogin: () => void }) {
         onLogin();
       }
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || "Failed to sign in. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="py-32 max-w-md mx-auto px-4">
-      <h1 className="font-heading text-4xl font-black text-white text-center mb-8">Admin <span className="text-primary">Login</span></h1>
-      {error && <div className="p-4 bg-rose-500/20 border border-rose-500/30 text-rose-400 rounded-xl mb-6">{error}</div>}
-      <form onSubmit={handleLogin} className="glass-card p-8 space-y-6">
-        <div>
-          <label className="block text-sm font-semibold mb-2">Username</label>
-          <input type="text" required value={username} onChange={e => setUsername(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none" />
+    <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a] px-4 relative overflow-hidden pb-32">
+      {/* Dynamic Background Elements */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+      
+      <div className="w-full max-w-md relative z-10">
+        <div className="text-center mb-10">
+          <div className="w-20 h-20 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-black/50 backdrop-blur-md">
+            <Shield className="w-10 h-10 text-blue-500" />
+          </div>
+          <h1 className="font-heading text-4xl font-black text-white mb-2">
+            Admin <span className="text-blue-500">Portal</span>
+          </h1>
+          <p className="text-slate-400 text-sm">Sign in to manage KPL Season 2</p>
         </div>
-        <div>
-          <label className="block text-sm font-semibold mb-2">Password</label>
-          <input type="password" required value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white focus:border-primary outline-none" />
+
+        <div className="bg-white/[0.03] border border-white/[0.08] p-8 rounded-3xl shadow-2xl backdrop-blur-xl relative overflow-hidden">
+          {/* Subtle glow edge */}
+          <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+
+          {error && (
+            <div className="flex items-center gap-3 p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-2xl mb-6 text-sm font-medium animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0"></div>
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 ml-1">Username</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <User className="h-5 w-5 text-slate-500 group-focus-within:text-blue-400 transition-colors" />
+                </div>
+                <input 
+                  type="text" 
+                  required 
+                  value={username} 
+                  onChange={e => setUsername(e.target.value)} 
+                  className="w-full bg-black/40 border border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-white text-sm focus:border-blue-500 focus:bg-blue-500/5 outline-none transition-all placeholder:text-slate-600" 
+                  placeholder="Enter your username"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 ml-1">Password</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <div className="h-5 w-5 text-slate-500 group-focus-within:text-blue-400 transition-colors flex items-center justify-center">
+                    {/* Minimal lock icon substitute since Lock isn't imported, using Shield/Activity as fallback or just CSS */}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  </div>
+                </div>
+                <input 
+                  type="password" 
+                  required 
+                  value={password} 
+                  onChange={e => setPassword(e.target.value)} 
+                  className="w-full bg-black/40 border border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-white text-sm focus:border-blue-500 focus:bg-blue-500/5 outline-none transition-all placeholder:text-slate-600" 
+                  placeholder="••••••••"
+                />
+              </div>
+            </div>
+
+            <button 
+              type="submit" 
+              disabled={loading}
+              className="relative w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl text-center hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 disabled:hover:translate-y-0 overflow-hidden group"
+            >
+              {/* Shine effect */}
+              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"></div>
+              
+              <span className="relative flex items-center justify-center gap-2">
+                {loading ? (
+                  <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> Authenticating...</>
+                ) : (
+                  <>Sign In <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>
+                )}
+              </span>
+            </button>
+          </form>
         </div>
-        <button type="submit" className="w-full py-3 bg-primary text-primary-foreground font-bold rounded-xl text-center hover:bg-primary/90 transition-all">
-          Sign In
-        </button>
-      </form>
+        
+        {/* Footer subtle text */}
+        <p className="text-center text-slate-500 text-xs mt-8">
+          Secured by Antigravity <br /> KPL Admin Dashboard
+        </p>
+      </div>
     </div>
   );
 }
