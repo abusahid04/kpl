@@ -45,9 +45,29 @@ export const apiFetch = async (endpoint: string, options: RequestInit = {}): Pro
     throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
   }
   
-  const result = await response.json();
+  let result = await response.json();
   if (result && result.error) {
     throw new Error(result.error);
   }
-  return result;
+
+  // Global fix for backend upload URLs
+  const fixImageUrls = (obj: any): any => {
+    if (typeof obj === 'string') {
+      return obj.replace(/\/kpl\/backend\/uploads\//g, 'https://kpl.devkayy.in/uploads/')
+                .replace(/^uploads\//g, 'https://kpl.devkayy.in/uploads/');
+    }
+    if (Array.isArray(obj)) {
+      return obj.map(fixImageUrls);
+    }
+    if (obj !== null && typeof obj === 'object') {
+      const newObj: any = {};
+      for (const key in obj) {
+        newObj[key] = fixImageUrls(obj[key]);
+      }
+      return newObj;
+    }
+    return obj;
+  };
+
+  return fixImageUrls(result);
 };
