@@ -309,7 +309,7 @@ function Register() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    fetch("/kpl/api/settings.php")
+    fetch("https://kpl.devkayy.in/api/settings.php")
       .then(res => res.json())
       .then(res => setSettings(res))
       .catch(console.error);
@@ -339,7 +339,7 @@ function Register() {
     Object.entries(formData).forEach(([key, val]) => data.append(key, String(val)));
     Object.entries(files).forEach(([key, file]) => data.append(key, file as File));
     try {
-      const res = await fetch("/kpl/api/register_custom.php", { method: "POST", body: data });
+      const res = await fetch("https://kpl.devkayy.in/api/register_custom.php", { method: "POST", body: data });
       const result = await res.json();
       if (res.ok) {
         setReceipt({
@@ -4686,7 +4686,7 @@ export default function App() {
   const [settings, setSettings] = useState<any>(null);
 
   useEffect(() => {
-    fetch("/kpl/api/settings.php")
+    fetch("https://kpl.devkayy.in/api/settings.php")
       .then(res => res.json())
       .then(data => {
         setSettings(data);
@@ -4707,7 +4707,7 @@ export default function App() {
   }, []);
 
   return (
-    <Router basename="/kpl/dist">
+    <Router basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col justify-between">
         <Navbar settings={settings} />
