@@ -29,7 +29,7 @@ export default function Navbar({ settings }: { settings?: any }) {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-sm transition-all">
+    <nav className="sticky top-0 z-50 bg-[#030303]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-sm transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-18 py-3">
 
@@ -163,7 +163,7 @@ export default function Navbar({ settings }: { settings?: any }) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 right-0 w-64 bg-[#0a0a0a]/95 backdrop-blur-xl border-l border-white/[0.08] shadow-2xl z-[50] md:hidden overflow-y-auto"
+              className="fixed inset-y-0 right-0 w-64 bg-[#030303]/95 backdrop-blur-xl border-l border-white/[0.08] shadow-2xl z-[50] md:hidden overflow-y-auto"
             >
               <div className="px-4 py-20 space-y-2">
                 {navLinks.map((link) => {
