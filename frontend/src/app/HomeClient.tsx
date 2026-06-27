@@ -76,14 +76,14 @@ export default function HomeClient({
       {/* ══════════════════════════════════════════════
           HERO SECTION
       ══════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 z-10">
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 pb-12 z-10 isolate">
         {/* Background Image Mask */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/40 via-[#030303]/80 to-[#030303] z-10"></div>
           <img
             src={heroImg}
             alt="Stadium"
-            className="w-full h-full object-cover object-top opacity-40 mix-blend-luminosity"
+            className="w-full h-full object-cover object-top opacity-30 grayscale"
           />
         </div>
 
