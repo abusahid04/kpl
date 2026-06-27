@@ -39,7 +39,7 @@ export default function Navbar({ settings }: { settings?: any }) {
 
   return (
     <>
-      <nav className="sticky top-0 z-[60] bg-[#030303]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-sm">
+      <nav className="sticky top-0 z-[60] bg-[#030303]/60 backdrop-blur-2xl border-b border-white/[0.08] shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-18 py-3">
             {/* Logo */}
