@@ -1,6 +1,6 @@
 // API configuration utility for PHP backend APIs
 
-const BASE_URL = "/kpl/backend/api";
+const BASE_URL = "https://kpl.devkayy.in/api";
 
 export const apiFetch = async (endpoint: string, options: RequestInit = {}): Promise<any> => {
   const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
