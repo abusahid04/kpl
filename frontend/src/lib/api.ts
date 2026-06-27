@@ -53,8 +53,11 @@ export const apiFetch = async (endpoint: string, options: RequestInit = {}): Pro
   // Global fix for backend upload URLs
   const fixImageUrls = (obj: any): any => {
     if (typeof obj === 'string') {
-      return obj.replace(/\/kpl\/backend\/uploads\//g, 'https://kpl.devkayy.in/uploads/')
-                .replace(/^uploads\//g, 'https://kpl.devkayy.in/uploads/');
+      const match = obj.match(/uploads[\/\\](.+)$/);
+      if (match) {
+        return 'https://kpl.devkayy.in/uploads/' + match[1];
+      }
+      return obj;
     }
     if (Array.isArray(obj)) {
       return obj.map(fixImageUrls);
