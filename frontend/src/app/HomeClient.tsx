@@ -201,11 +201,11 @@ export default function HomeClient({
                 />
                 
                 {/* Overlay Badge */}
-                <div className="absolute bottom-8 left-8 z-20">
-                  <div className="bg-white/[0.1] backdrop-blur-xl border border-white/[0.15] p-5 rounded-2xl">
+                <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 z-20 scale-90 sm:scale-100 origin-bottom-left">
+                  <div className="bg-white/[0.1] backdrop-blur-xl border border-white/[0.15] p-3 sm:p-5 rounded-xl sm:rounded-2xl">
                     <div className="flex flex-col">
-                      <p className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-1">Prize Pool</p>
-                      <p className="text-4xl font-black text-white">₹40k<span className="text-blue-500">+</span></p>
+                      <p className="text-[10px] sm:text-sm font-bold text-slate-400 uppercase tracking-widest mb-0.5 sm:mb-1">Prize Pool</p>
+                      <p className="text-2xl sm:text-4xl font-black text-white">₹40k<span className="text-blue-500">+</span></p>
                     </div>
                   </div>
                 </div>
