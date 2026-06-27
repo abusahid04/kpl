@@ -196,8 +196,8 @@ export default function HomeClient({
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10"></div>
                 <img
                   src={playerImg}
-                  alt="Action"
-                  className="w-full h-[600px] object-cover object-center scale-105 hover:scale-100 transition-transform duration-700"
+                  alt="Cricket Player in Action"
+                  className="w-full h-auto md:h-[480px] object-cover object-center scale-105 hover:scale-100 transition-transform duration-700"
                 />
                 
                 {/* Overlay Badge */}
