@@ -44,3 +44,9 @@ next-env.d.ts
 
 # api
 api/
+
+# custom ignores
+uploads/
+public/uploads/
+dist/uploads/
+database/
