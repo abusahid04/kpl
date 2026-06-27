@@ -67,7 +67,7 @@ export default function HomeClient({
   const trophyImg  = landingTrophyImage || "/trophy.png";
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#0a0a0a]">
 
       {/* ══════════════════════════════════════════════
           HERO — full-bleed stadium photo + overlay text
@@ -92,11 +92,11 @@ export default function HomeClient({
             {/* Badge */}
             <motion.span
               variants={fadeUp}
-              className="inline-flex items-center gap-2 py-1.5 px-5 rounded-full bg-white/15 border border-white/30 text-white text-xs font-bold mb-8 uppercase tracking-widest backdrop-blur-sm"
+              className="inline-flex items-center gap-2 py-1.5 px-5 rounded-2xl bg-white/5 border border-white/30 text-white text-xs font-bold mb-8 uppercase tracking-widest backdrop-blur-sm"
             >
-              <Star size={11} className="fill-[#F59E0B] text-[#F59E0B]" />
+              <Star size={11} className="fill-[#F59E0B] text-blue-400" />
               {heroBadge}
-              <Star size={11} className="fill-[#F59E0B] text-[#F59E0B]" />
+              <Star size={11} className="fill-[#F59E0B] text-blue-400" />
             </motion.span>
 
             {/* Title */}
@@ -106,7 +106,7 @@ export default function HomeClient({
             >
               {heroTitle.split(" ").map((word, i, arr) =>
                 i >= arr.length - 2 ? (
-                  <span key={i} className="text-[#F59E0B]"> {word}</span>
+                  <span key={i} className="text-blue-400"> {word}</span>
                 ) : (
                   <span key={i}>{word} </span>
                 )
@@ -128,13 +128,13 @@ export default function HomeClient({
             >
               <Link
                 to="/register?type=player"
-                className="px-9 py-4 bg-[#F59E0B] text-white font-black rounded-full hover:bg-amber-500 transition-all shadow-2xl shadow-amber-500/30 hover:-translate-y-1 text-sm md:text-base tracking-wide"
+                className="px-9 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl hover:bg-blue-500/100 transition-all shadow-2xl  hover:-translate-y-1 text-sm md:text-base tracking-wide"
               >
                 🏏 Register as Player
               </Link>
               <Link
                 to="/register?type=team"
-                className="px-9 py-4 bg-white/10 backdrop-blur-md text-white font-bold rounded-full border border-white/30 hover:bg-white/20 transition-all text-sm md:text-base hover:-translate-y-1"
+                className="px-9 py-4 bg-white/5 backdrop-blur-md text-white font-bold rounded-2xl border border-white/30 hover:bg-[#0a0a0a]/20 transition-all text-sm md:text-base hover:-translate-y-1"
               >
                 🏆 Register as Team
               </Link>
@@ -144,8 +144,8 @@ export default function HomeClient({
 
         {/* Scroll arrow */}
         <div className="absolute bottom-10 z-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-60">
-          <div className="w-5 h-8 border-2 border-white/50 rounded-full flex items-start justify-center pt-1.5">
-            <div className="w-1 h-2 bg-white rounded-full animate-bounce" />
+          <div className="w-5 h-8 border-2 border-white/50 rounded-2xl flex items-start justify-center pt-1.5">
+            <div className="w-1 h-2 bg-[#0a0a0a] rounded-2xl animate-bounce" />
           </div>
         </div>
       </section>
@@ -171,13 +171,13 @@ export default function HomeClient({
               <motion.div
                 key={label}
                 variants={fadeUp}
-                className="bg-white rounded-2xl p-5 flex flex-col items-center text-center shadow-xl shadow-slate-200/80 border border-slate-100 hover:border-blue-200 hover:shadow-blue-100 transition-all hover:-translate-y-1"
+                className="bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.08] p-5 flex flex-col items-center text-center shadow-xl shadow-2xl shadow-black/50 border border-white/[0.08] hover:border-blue-500/50 hover:shadow-[0_0_20px_rgba(37,99,235,0.2)] transition-all hover:-translate-y-1"
               >
-                <div className="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-[#1E3A8A] mb-3 shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-3 shrink-0">
                   <Icon size={20} />
                 </div>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{label}</p>
-                <p className="text-sm font-black text-slate-800">{value}</p>
+                <p className="text-sm font-black text-white">{value}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -199,7 +199,7 @@ export default function HomeClient({
             {/* Photo side */}
             <motion.div variants={fadeUp} className="flex-1 relative">
               {/* Main action photo */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-slate-300/60">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-2xl shadow-black/50">
                 <img
                   src={playerImg}
                   alt="Cricket Player in Action"
@@ -208,11 +208,11 @@ export default function HomeClient({
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#1E3A8A]/20 to-transparent" />
               </div>
               {/* Floating trophy badge */}
-              <div className="absolute -bottom-6 -right-6 lg:-right-10 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3 border border-slate-100 w-52">
+              <div className="absolute -bottom-6 -right-6 lg:-right-10 bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.08] shadow-xl p-4 flex items-center gap-3 border border-white/[0.08] w-52">
                 <img src={trophyImg} alt="Trophy" className="w-14 h-14 object-contain" />
                 <div>
                   <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide">Prize Pool</p>
-                  <p className="text-xl font-black text-[#1E3A8A]">₹1 Lakh+</p>
+                  <p className="text-xl font-black text-blue-500">₹1 Lakh+</p>
                 </div>
               </div>
               {/* Floating field chip */}
@@ -224,14 +224,14 @@ export default function HomeClient({
 
             {/* Text side */}
             <motion.div variants={fadeUp} className="flex-1 mt-8 lg:mt-0">
-              <span className="inline-block text-xs font-bold text-[#1E3A8A] uppercase tracking-widest mb-4 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
+              <span className="inline-block text-xs font-bold text-blue-500 uppercase tracking-widest mb-4 bg-blue-500/10 px-4 py-1.5 rounded-2xl border border-blue-500/20">
                 About the League
               </span>
-              <h2 className="font-heading text-3xl md:text-5xl font-black text-[#0F172A] mb-6 leading-tight">
+              <h2 className="font-heading text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
                 Where Local Cricket <br />
-                <span className="text-[#1E3A8A]">Meets the Big Stage</span>
+                <span className="text-blue-500">Meets the Big Stage</span>
               </h2>
-              <p className="text-slate-500 leading-relaxed mb-8 text-base">
+              <p className="text-slate-400 leading-relaxed mb-8 text-base">
                 Khoraghat Premier League is more than just a tournament — it's a festival of cricket.
                 Bringing together the finest local talents, KPL provides a professional platform
                 for players to showcase their skills in a high-octane, competitive environment.
@@ -243,8 +243,8 @@ export default function HomeClient({
                   "Equal opportunity for all local talent",
                   "Organized by experienced committee",
                 ].map((point) => (
-                  <li key={point} className="flex items-center gap-3 text-slate-700 text-sm font-medium">
-                    <CheckCircle2 size={17} className="text-[#1E3A8A] shrink-0" />
+                  <li key={point} className="flex items-center gap-3 text-slate-300 text-sm font-medium">
+                    <CheckCircle2 size={17} className="text-blue-500 shrink-0" />
                     {point}
                   </li>
                 ))}
@@ -252,13 +252,13 @@ export default function HomeClient({
               <div className="flex flex-col sm:flex-row gap-3 mt-10">
                 <Link
                   to="/register?type=player"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#1E3A8A] text-white font-bold rounded-full hover:bg-[#17306d] transition-all shadow-lg shadow-blue-900/20 hover:-translate-y-0.5 text-sm"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#1E3A8A] text-white font-bold rounded-2xl hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transition-all shadow-lg shadow-blue-900/20 hover:-translate-y-0.5 text-sm"
                 >
                   🏏 Player Registration <ArrowRight size={15} />
                 </Link>
                 <Link
                   to="/register?type=team"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-[#1E3A8A] font-bold rounded-full border-2 border-[#1E3A8A] hover:bg-blue-50 transition-all text-sm hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#0a0a0a] text-blue-500 font-bold rounded-2xl border border-white/10 bg-white/5 hover:bg-blue-500/10 transition-all text-sm hover:-translate-y-0.5"
                 >
                   🏆 Team Registration <ArrowRight size={15} />
                 </Link>
@@ -293,7 +293,7 @@ export default function HomeClient({
               { value: "₹1L+", label: "Prize Pool" },
             ].map(({ value, label }) => (
               <motion.div key={label} variants={fadeUp}>
-                <p className="text-4xl md:text-5xl font-black text-[#F59E0B] mb-2 drop-shadow">{value}</p>
+                <p className="text-4xl md:text-5xl font-black text-blue-400 mb-2 drop-shadow">{value}</p>
                 <p className="text-sm font-semibold text-white/70 uppercase tracking-widest">{label}</p>
               </motion.div>
             ))}
@@ -305,15 +305,15 @@ export default function HomeClient({
           ANNOUNCEMENTS
       ══════════════════════════════════════════════ */}
       {announcements.length > 0 && (
-        <section className="py-24 bg-slate-50">
+        <section className="py-24 bg-transparent">
           <div className="max-w-4xl mx-auto px-4">
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <motion.div variants={fadeUp} className="text-center mb-12">
-                <span className="inline-block text-xs font-bold text-[#1E3A8A] uppercase tracking-widest mb-3 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
+                <span className="inline-block text-xs font-bold text-blue-500 uppercase tracking-widest mb-3 bg-blue-500/10 px-4 py-1.5 rounded-2xl border border-blue-500/20">
                   News & Updates
                 </span>
-                <h2 className="font-heading text-3xl md:text-5xl font-black text-[#0F172A]">
-                  Latest <span className="text-[#1E3A8A]">Announcements</span>
+                <h2 className="font-heading text-3xl md:text-5xl font-black text-white">
+                  Latest <span className="text-blue-500">Announcements</span>
                 </h2>
               </motion.div>
               <div className="space-y-4">
@@ -321,19 +321,19 @@ export default function HomeClient({
                   <motion.div
                     key={item.id}
                     variants={fadeUp}
-                    className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-md transition-all relative overflow-hidden group"
+                    className="bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.08] p-6 border border-white/[0.08] shadow-sm hover:shadow-md transition-all relative overflow-hidden group"
                   >
                     <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#1E3A8A] to-[#3B5FC0] rounded-l-2xl" />
                     {item.isPinned && (
-                      <span className="absolute top-4 right-4 bg-amber-50 text-amber-600 text-[10px] font-bold px-3 py-1 rounded-full border border-amber-200 uppercase tracking-wider">
+                      <span className="absolute top-4 right-4 bg-blue-500/10 text-blue-400 text-[10px] font-bold px-3 py-1 rounded-2xl border border-blue-500/20 uppercase tracking-wider">
                         📌 Pinned
                       </span>
                     )}
                     <div className="flex items-center gap-3 mb-2 ml-3">
-                      <Megaphone size={17} className="text-[#1E3A8A] shrink-0" />
-                      <h3 className="text-lg font-bold text-slate-800">{item.title}</h3>
+                      <Megaphone size={17} className="text-blue-500 shrink-0" />
+                      <h3 className="text-lg font-bold text-white">{item.title}</h3>
                     </div>
-                    <p className="text-slate-500 text-sm whitespace-pre-line mb-3 ml-3">{item.content}</p>
+                    <p className="text-slate-400 text-sm whitespace-pre-line mb-3 ml-3">{item.content}</p>
                     <span className="text-xs text-slate-400 font-medium ml-3">
                       {new Date(item.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                     </span>
@@ -354,14 +354,14 @@ export default function HomeClient({
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <motion.div variants={fadeUp} className="flex justify-between items-end mb-12">
                 <div>
-                  <span className="inline-block text-xs font-bold text-[#1E3A8A] uppercase tracking-widest mb-3 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
+                  <span className="inline-block text-xs font-bold text-blue-500 uppercase tracking-widest mb-3 bg-blue-500/10 px-4 py-1.5 rounded-2xl border border-blue-500/20">
                     Competing Franchises
                   </span>
-                  <h2 className="font-heading text-3xl md:text-5xl font-black text-[#0F172A]">
-                    Featured <span className="text-[#1E3A8A]">Teams</span>
+                  <h2 className="font-heading text-3xl md:text-5xl font-black text-white">
+                    Featured <span className="text-blue-500">Teams</span>
                   </h2>
                 </div>
-                <Link to="/teams" className="text-[#1E3A8A] hover:text-blue-800 font-semibold flex items-center gap-1 text-sm whitespace-nowrap">
+                <Link to="/teams" className="text-blue-500 hover:text-blue-800 font-semibold flex items-center gap-1 text-sm whitespace-nowrap">
                   View All <ChevronRight size={16} />
                 </Link>
               </motion.div>
@@ -371,7 +371,7 @@ export default function HomeClient({
                   <motion.div
                     key={team.id}
                     variants={fadeUp}
-                    className="bg-white rounded-2xl overflow-hidden shadow-md shadow-slate-200/80 border border-slate-100 hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-2 transition-all group"
+                    className="bg-white/[0.03] backdrop-blur-xl rounded-2xl border border-white/[0.08] overflow-hidden shadow-md shadow-2xl shadow-black/50 border border-white/[0.08] hover:shadow-xl hover:shadow-[0_0_20px_rgba(37,99,235,0.2)] hover:-translate-y-2 transition-all group"
                   >
                     <div className="h-40 bg-gradient-to-br from-blue-900 to-slate-800 relative flex items-center justify-center overflow-hidden">
                       {/* background field subtle overlay */}
@@ -393,11 +393,11 @@ export default function HomeClient({
                       )}
                     </div>
                     <div className="p-5">
-                      <h3 className="font-black text-slate-900 text-lg mb-1">{team.name}</h3>
+                      <h3 className="font-black text-white text-lg mb-1">{team.name}</h3>
                       <p className="text-slate-400 text-xs line-clamp-2 mb-4">{team.description || "KPL elite franchise."}</p>
-                      <div className="flex justify-between items-center pt-3 border-t border-slate-100">
+                      <div className="flex justify-between items-center pt-3 border-t border-white/[0.08]">
                         <span className="text-xs text-slate-400 font-medium">Squad</span>
-                        <span className="text-sm font-black text-[#1E3A8A]">{team.players.length} Players</span>
+                        <span className="text-sm font-black text-blue-500">{team.players.length} Players</span>
                       </div>
                     </div>
                   </motion.div>
@@ -413,19 +413,19 @@ export default function HomeClient({
           GALLERY PREVIEW
       ══════════════════════════════════════════════ */}
       {gallery.length > 0 && (
-        <section className="py-24 bg-slate-50">
+        <section className="py-24 bg-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <motion.div variants={fadeUp} className="flex justify-between items-end mb-12">
                 <div>
-                  <span className="inline-block text-xs font-bold text-[#1E3A8A] uppercase tracking-widest mb-3 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
+                  <span className="inline-block text-xs font-bold text-blue-500 uppercase tracking-widest mb-3 bg-blue-500/10 px-4 py-1.5 rounded-2xl border border-blue-500/20">
                     Photo Gallery
                   </span>
-                  <h2 className="font-heading text-3xl md:text-5xl font-black text-[#0F172A]">
-                    Recent <span className="text-[#1E3A8A]">Highlights</span>
+                  <h2 className="font-heading text-3xl md:text-5xl font-black text-white">
+                    Recent <span className="text-blue-500">Highlights</span>
                   </h2>
                 </div>
-                <Link to="/gallery" className="text-[#1E3A8A] hover:text-blue-800 font-semibold flex items-center gap-1 text-sm whitespace-nowrap">
+                <Link to="/gallery" className="text-blue-500 hover:text-blue-800 font-semibold flex items-center gap-1 text-sm whitespace-nowrap">
                   View Gallery <ChevronRight size={16} />
                 </Link>
               </motion.div>
@@ -459,11 +459,11 @@ export default function HomeClient({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <motion.div variants={fadeUp} className="mb-12">
-                <span className="inline-block text-xs font-bold text-[#1E3A8A] uppercase tracking-widest mb-3 bg-blue-50 px-4 py-1.5 rounded-full border border-blue-100">
+                <span className="inline-block text-xs font-bold text-blue-500 uppercase tracking-widest mb-3 bg-blue-500/10 px-4 py-1.5 rounded-2xl border border-blue-500/20">
                   Supported By
                 </span>
-                <h2 className="font-heading text-3xl md:text-5xl font-black text-[#0F172A]">
-                  Our Proud <span className="text-[#1E3A8A]">Sponsors</span>
+                <h2 className="font-heading text-3xl md:text-5xl font-black text-white">
+                  Our Proud <span className="text-blue-500">Sponsors</span>
                 </h2>
               </motion.div>
               <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
@@ -473,7 +473,7 @@ export default function HomeClient({
                     href={sponsor.website || "#"}
                     target={sponsor.website ? "_blank" : "_self"}
                     rel="noreferrer"
-                    className="w-36 h-20 bg-white rounded-xl border border-slate-200 p-4 flex items-center justify-center hover:border-blue-300 hover:shadow-md transition-all filter grayscale hover:grayscale-0"
+                    className="w-36 h-20 bg-[#0a0a0a] rounded-xl border border-white/[0.08] p-4 flex items-center justify-center hover:border-blue-300 hover:shadow-md transition-all filter grayscale hover:grayscale-0"
                   >
                     <img src={sponsor.logoUrl} alt={sponsor.name} className="max-w-full max-h-full object-contain" />
                   </a>
@@ -499,7 +499,7 @@ export default function HomeClient({
             viewport={{ once: true }}
           >
             <motion.h2 variants={fadeUp} className="font-heading text-3xl md:text-6xl font-black text-white mb-6 leading-tight">
-              Ready to Play in <span className="text-[#F59E0B]">KPL Season 2?</span>
+              Ready to Play in <span className="text-blue-400">KPL Season 2?</span>
             </motion.h2>
             <motion.p variants={fadeUp} className="text-white/70 text-base md:text-lg mb-10 max-w-2xl mx-auto">
               Don't miss your chance to be part of the biggest local cricket event. Register today and show the world what you've got.
@@ -507,13 +507,13 @@ export default function HomeClient({
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/register"
-                className="px-10 py-4 bg-[#F59E0B] text-white font-black rounded-full hover:bg-amber-500 transition-all shadow-xl shadow-amber-500/30 hover:-translate-y-1 text-base"
+                className="px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-black rounded-2xl hover:bg-blue-500/100 transition-all shadow-xl  hover:-translate-y-1 text-base"
               >
                 Register as Player
               </Link>
               <Link
                 to="/about"
-                className="px-10 py-4 bg-white/10 text-white font-bold rounded-full border border-white/20 hover:bg-white/20 transition-all text-base hover:-translate-y-1"
+                className="px-10 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/20 hover:bg-[#0a0a0a]/20 transition-all text-base hover:-translate-y-1"
               >
                 Learn More
               </Link>

@@ -29,7 +29,7 @@ export default function Navbar({ settings }: { settings?: any }) {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all">
+    <nav className="sticky top-0 z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-sm transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-18 py-3">
 
@@ -55,15 +55,15 @@ export default function Navbar({ settings }: { settings?: any }) {
                     const rest = parts.slice(1).join(" ");
                     return (
                       <span className="flex items-center gap-1">
-                        <span className="text-[#1E3A8A]">{first}</span>
-                        {rest && <span className="text-slate-400 text-lg font-semibold">{rest}</span>}
+                        <span className="text-white">{first}</span>
+                        {rest && <span className="text-blue-500 text-lg font-semibold">{rest}</span>}
                       </span>
                     );
                   })()
                 ) : (
                   <>
-                    <span className="text-[#1E3A8A]">KPL</span>
-                    <span className="text-slate-400 text-lg font-semibold">Season 2</span>
+                    <span className="text-white">KPL</span>
+                    <span className="text-blue-500 text-lg font-semibold">Season 2</span>
                   </>
                 )
               )}
@@ -79,7 +79,7 @@ export default function Navbar({ settings }: { settings?: any }) {
                   <Link
                     key={link.name}
                     to={link.href}
-                    className="ml-4 px-5 py-2.5 bg-[#1E3A8A] text-white font-bold rounded-full text-sm hover:bg-[#17306d] hover:scale-105 transition-all shadow-md shadow-blue-900/20"
+                    className="ml-4 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl text-sm hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:-translate-y-0.5 transition-all shadow-md shadow-blue-900/20"
                   >
                     {link.name}
                   </Link>
@@ -89,10 +89,10 @@ export default function Navbar({ settings }: { settings?: any }) {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     isActive
-                      ? "bg-blue-50 text-[#1E3A8A] font-bold"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-[#1E3A8A]"
+                      ? "bg-blue-500/10 text-blue-400 font-bold"
+                      : "text-slate-300 hover:bg-white/5 hover:text-white"
                   }`}
                 >
                   {link.name}
@@ -104,17 +104,17 @@ export default function Navbar({ settings }: { settings?: any }) {
               <>
                 <Link
                   to="/admin/dashboard"
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     pathname.startsWith("/admin")
-                      ? "bg-blue-50 text-[#1E3A8A] font-bold"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-[#1E3A8A]"
+                      ? "bg-blue-500/10 text-blue-400 font-bold"
+                      : "text-slate-300 hover:bg-white/5 hover:text-white"
                   }`}
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="px-4 py-2 rounded-full text-sm font-medium text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-full text-sm font-medium text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
                 >
                   Sign Out
                 </button>
@@ -122,10 +122,10 @@ export default function Navbar({ settings }: { settings?: any }) {
             ) : (
               <Link
                 to="/admin/login"
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   pathname === "/admin/login"
-                    ? "bg-blue-50 text-[#1E3A8A] font-bold"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-[#1E3A8A]"
+                    ? "bg-blue-500/10 text-blue-400 font-bold"
+                    : "text-slate-300 hover:bg-white/5 hover:text-white"
                 }`}
               >
                 Login
@@ -134,10 +134,10 @@ export default function Navbar({ settings }: { settings?: any }) {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center z-[60]">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-slate-700 hover:text-[#1E3A8A] focus:outline-none p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className="text-white hover:text-blue-400 focus:outline-none p-2 rounded-lg hover:bg-white/5 transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -145,81 +145,97 @@ export default function Navbar({ settings }: { settings?: any }) {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Drawer Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-slate-200"
-          >
-            <div className="px-4 pt-2 pb-6 space-y-1">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                if (link.name === "Register") {
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[45] md:hidden"
+            />
+            
+            {/* Mobile Drawer */}
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 right-0 w-64 bg-[#0a0a0a]/95 backdrop-blur-xl border-l border-white/[0.08] shadow-2xl z-[50] md:hidden overflow-y-auto"
+            >
+              <div className="px-4 py-20 space-y-2">
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href;
+                  if (link.name === "Register") {
+                    return (
+                      <Link
+                        key={link.name}
+                        to={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className="block text-center px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl text-base transition-colors mt-4"
+                      >
+                        {link.name}
+                      </Link>
+                    );
+                  }
                   return (
                     <Link
                       key={link.name}
                       to={link.href}
                       onClick={() => setIsOpen(false)}
-                      className="block text-center px-4 py-3 bg-[#1E3A8A] text-white font-bold rounded-xl text-base transition-colors shadow-md"
+                      className={`block px-4 py-3 rounded-2xl text-base font-medium transition-all ${
+                        isActive
+                          ? "bg-blue-500/10 text-blue-400 font-bold border border-blue-500/20"
+                          : "text-slate-300 hover:bg-white/5 hover:text-white border border-transparent"
+                      }`}
                     >
                       {link.name}
                     </Link>
                   );
-                }
-                return (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                      isActive
-                        ? "bg-blue-50 text-[#1E3A8A] font-bold"
-                        : "text-slate-700 hover:bg-slate-100 hover:text-[#1E3A8A]"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                );
-              })}
+                })}
 
-              {isAuthenticated ? (
-                <>
-                  <Link
-                    to="/admin/dashboard"
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                      pathname.startsWith("/admin")
-                        ? "bg-blue-50 text-[#1E3A8A] font-bold"
-                        : "text-slate-700 hover:bg-slate-100 hover:text-[#1E3A8A]"
-                    }`}
-                  >
-                    Dashboard
-                  </Link>
-                  <button
-                    onClick={() => { setIsOpen(false); handleSignOut(); }}
-                    className="block w-full text-left px-4 py-3 rounded-xl text-base font-medium text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
-                  >
-                    Sign Out
-                  </button>
-                </>
-              ) : (
-                <Link
-                  to="/admin/login"
-                  onClick={() => setIsOpen(false)}
-                  className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                    pathname === "/admin/login"
-                      ? "bg-blue-50 text-[#1E3A8A] font-bold"
-                      : "text-slate-700 hover:bg-slate-100 hover:text-[#1E3A8A]"
-                  }`}
-                >
-                  Login
-                </Link>
-              )}
-            </div>
-          </motion.div>
+                {isAuthenticated ? (
+                  <>
+                    <div className="my-4 border-t border-white/[0.08]"></div>
+                    <Link
+                      to="/admin/dashboard"
+                      onClick={() => setIsOpen(false)}
+                      className={`block px-4 py-3 rounded-2xl text-base font-medium transition-all ${
+                        pathname.startsWith("/admin")
+                          ? "bg-blue-500/10 text-blue-400 font-bold border border-blue-500/20"
+                          : "text-slate-300 hover:bg-white/5 hover:text-white border border-transparent"
+                      }`}
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => { setIsOpen(false); handleSignOut(); }}
+                      className="block w-full text-left px-4 py-3 rounded-2xl text-base font-medium text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="my-4 border-t border-white/[0.08]"></div>
+                    <Link
+                      to="/admin/login"
+                      onClick={() => setIsOpen(false)}
+                      className={`block px-4 py-3 rounded-2xl text-base font-medium transition-all ${
+                        pathname === "/admin/login"
+                          ? "bg-blue-500/10 text-blue-400 font-bold border border-blue-500/20"
+                          : "text-slate-300 hover:bg-white/5 hover:text-white border border-transparent"
+                      }`}
+                    >
+                      Login
+                    </Link>
+                  </>
+                )}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </nav>
