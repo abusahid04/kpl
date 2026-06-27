@@ -87,7 +87,7 @@ export default function HomeClient({
           />
         </div>
 
-        <div className="relative z-20 text-center px-4 max-w-6xl mx-auto flex flex-col items-center w-full">
+        <div className="relative z-20 text-center px-4 pb-24 max-w-6xl mx-auto flex flex-col items-center justify-center w-full min-h-[80vh]">
           <motion.div variants={stagger} initial="hidden" animate="show" className="flex flex-col items-center w-full">
             
             {/* Badge */}
@@ -135,7 +135,7 @@ export default function HomeClient({
               </Link>
               <Link
                 to="/register?type=team"
-                className="group w-full sm:w-auto px-10 py-5 bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] text-white font-bold rounded-2xl hover:bg-white/[0.08] transition-all duration-300 flex items-center justify-center gap-3 hover:-translate-y-1"
+                className="group w-full sm:w-auto px-10 py-5 bg-white/[0.08] backdrop-blur-xl border border-white/[0.2] text-white font-black rounded-2xl hover:bg-white/[0.15] transition-all duration-300 flex items-center justify-center gap-3 hover:-translate-y-1 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]"
               >
                 🏆 Register as Team
               </Link>
@@ -148,7 +148,7 @@ export default function HomeClient({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
-          className="absolute bottom-10 z-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-6 sm:bottom-10 z-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 hidden md:flex"
         >
           <span className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Scroll Down</span>
           <div className="w-px h-12 bg-gradient-to-b from-slate-500 to-transparent"></div>
