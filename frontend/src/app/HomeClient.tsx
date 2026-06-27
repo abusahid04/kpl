@@ -197,7 +197,7 @@ export default function HomeClient({
                 <img
                   src={playerImg}
                   alt="Cricket Player in Action"
-                  className="w-full h-auto md:h-[480px] object-cover object-center scale-105 hover:scale-100 transition-transform duration-700"
+                  className="w-full h-auto object-contain rounded-3xl"
                 />
                 
                 {/* Overlay Badge */}
