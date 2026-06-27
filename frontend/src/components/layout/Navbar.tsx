@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,9 +17,14 @@ const navLinks = [
 
 export default function Navbar({ settings }: { settings?: any }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isAuthenticated = !!localStorage.getItem("kpl_admin_token");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   if (pathname.startsWith("/admin")) return null;
 
@@ -146,114 +152,118 @@ export default function Navbar({ settings }: { settings?: any }) {
         </div>
       </nav>
 
-      {/* Mobile Drawer Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            key="overlay"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9998] md:hidden"
-            style={{ position: 'fixed' }}
-          />
-        )}
-      </AnimatePresence>
-      
-      {/* Mobile Drawer */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            key="drawer"
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 250 }}
-            className="fixed inset-y-0 right-0 w-[85vw] max-w-[320px] bg-[#030303] shadow-[0_0_50px_rgba(0,0,0,0.8)] z-[9999] md:hidden flex flex-col border-l border-white/[0.08] overflow-hidden"
-            style={{ position: 'fixed' }}
-          >
-            {/* Drawer Ambient Background */}
-            <div className="absolute top-0 right-0 w-full h-64 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-            
-            {/* Drawer Header */}
-            <div className="flex items-center justify-between p-6 border-b border-white/[0.05] relative z-10">
-              <span className="font-heading font-black text-xl text-white flex items-center gap-1.5">
-                KPL <span className="text-blue-500 text-sm">Season 2</span>
-              </span>
-              <button
+      {/* Mobile Drawer Overlay and Drawer via Portal */}
+      {mounted && createPortal(
+        <div style={{ position: 'relative', zIndex: 999999 }}>
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                key="overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-white/[0.05] text-slate-400 hover:text-white hover:bg-white/[0.1] transition-all"
+                className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9998] md:hidden"
+                style={{ position: 'fixed' }}
+              />
+            )}
+          </AnimatePresence>
+          
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                key="drawer"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 30, stiffness: 250 }}
+                className="fixed inset-y-0 right-0 w-[85vw] max-w-[320px] bg-[#030303] shadow-[0_0_50px_rgba(0,0,0,0.8)] z-[9999] md:hidden flex flex-col border-l border-white/[0.08] overflow-hidden"
+                style={{ position: 'fixed' }}
               >
-                <X size={20} />
-              </button>
-            </div>
-
-            {/* Drawer Links */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-2 relative z-10 no-scrollbar">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-                if (link.name === "Register") {
-                  return (
-                    <Link
-                      key={link.name}
-                      to={link.href}
-                      onClick={() => setIsOpen(false)}
-                      className="block w-full text-center px-4 py-4 mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl text-base transition-all hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] shadow-lg shadow-black/50"
-                    >
-                      {link.name}
-                    </Link>
-                  );
-                }
-                return (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3.5 rounded-2xl text-base font-semibold transition-all ${
-                      isActive
-                        ? "bg-blue-500/15 text-blue-400 border border-blue-500/20 translate-x-2"
-                        : "text-slate-400 hover:text-white hover:bg-white/[0.03] hover:translate-x-2 border border-transparent"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* Drawer Footer (Auth) */}
-            <div className="p-6 border-t border-white/[0.05] relative z-10 bg-[#030303]/80 backdrop-blur-md">
-              {isAuthenticated ? (
-                <div className="flex items-center gap-3">
-                  <Link
-                    to="/admin/dashboard"
-                    onClick={() => setIsOpen(false)}
-                    className="flex-1 text-center px-4 py-3 rounded-2xl bg-white/[0.05] text-white font-semibold text-sm hover:bg-white/[0.1] transition-all"
-                  >
-                    Dashboard
-                  </Link>
+                {/* Drawer Ambient Background */}
+                <div className="absolute top-0 right-0 w-full h-64 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+                
+                {/* Drawer Header */}
+                <div className="flex items-center justify-between p-6 border-b border-white/[0.05] relative z-10">
+                  <span className="font-heading font-black text-xl text-white flex items-center gap-1.5">
+                    KPL <span className="text-blue-500 text-sm">Season 2</span>
+                  </span>
                   <button
-                    onClick={() => { setIsOpen(false); handleSignOut(); }}
-                    className="p-3 rounded-2xl bg-red-500/10 text-red-400 font-semibold text-sm hover:bg-red-500/20 transition-all cursor-pointer"
-                    title="Sign Out"
+                    onClick={() => setIsOpen(false)}
+                    className="w-8 h-8 flex items-center justify-center rounded-full bg-white/[0.05] text-slate-400 hover:text-white hover:bg-white/[0.1] transition-all"
                   >
                     <X size={20} />
                   </button>
                 </div>
-              ) : (
-                <Link
-                  to="/admin/login"
-                  onClick={() => setIsOpen(false)}
-                  className="block w-full text-center px-4 py-3 rounded-2xl bg-white/[0.05] text-slate-300 font-semibold text-sm hover:text-white hover:bg-white/[0.1] transition-all border border-white/[0.05]"
-                >
-                  Admin Login
-                </Link>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+                {/* Drawer Links */}
+                <div className="flex-1 overflow-y-auto p-6 space-y-2 relative z-10 no-scrollbar">
+                  {navLinks.map((link) => {
+                    const isActive = pathname === link.href;
+                    if (link.name === "Register") {
+                      return (
+                        <Link
+                          key={link.name}
+                          to={link.href}
+                          onClick={() => setIsOpen(false)}
+                          className="block w-full text-center px-4 py-4 mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-2xl text-base transition-all hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] shadow-lg shadow-black/50"
+                        >
+                          {link.name}
+                        </Link>
+                      );
+                    }
+                    return (
+                      <Link
+                        key={link.name}
+                        to={link.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`block px-4 py-3.5 rounded-2xl text-base font-semibold transition-all ${
+                          isActive
+                            ? "bg-blue-500/15 text-blue-400 border border-blue-500/20 translate-x-2"
+                            : "text-slate-400 hover:text-white hover:bg-white/[0.03] hover:translate-x-2 border border-transparent"
+                        }`}
+                      >
+                        {link.name}
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                {/* Drawer Footer (Auth) */}
+                <div className="p-6 border-t border-white/[0.05] relative z-10 bg-[#030303]/80 backdrop-blur-md">
+                  {isAuthenticated ? (
+                    <div className="flex items-center gap-3">
+                      <Link
+                        to="/admin/dashboard"
+                        onClick={() => setIsOpen(false)}
+                        className="flex-1 text-center px-4 py-3 rounded-2xl bg-white/[0.05] text-white font-semibold text-sm hover:bg-white/[0.1] transition-all"
+                      >
+                        Dashboard
+                      </Link>
+                      <button
+                        onClick={() => { setIsOpen(false); handleSignOut(); }}
+                        className="p-3 rounded-2xl bg-red-500/10 text-red-400 font-semibold text-sm hover:bg-red-500/20 transition-all cursor-pointer"
+                        title="Sign Out"
+                      >
+                        <X size={20} />
+                      </button>
+                    </div>
+                  ) : (
+                    <Link
+                      to="/admin/login"
+                      onClick={() => setIsOpen(false)}
+                      className="block w-full text-center px-4 py-3 rounded-2xl bg-white/[0.05] text-slate-300 font-semibold text-sm hover:text-white hover:bg-white/[0.1] transition-all border border-white/[0.05]"
+                    >
+                      Admin Login
+                    </Link>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>,
+        document.body
+      )}
     </>
   );
 }
