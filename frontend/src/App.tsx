@@ -36,7 +36,24 @@ function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center text-xl text-primary font-bold">Loading KPL Season 2...</div>;
+  if (loading) return (
+    <div className="min-h-screen bg-[#030303] overflow-hidden relative flex flex-col items-center justify-center pt-24 pb-12">
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-600/5 rounded-full blur-[150px] animate-pulse"></div>
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-indigo-600/5 rounded-full blur-[150px] animate-pulse"></div>
+      
+      <div className="w-full max-w-4xl mx-auto px-4 flex flex-col items-center gap-8 z-10">
+        <div className="w-48 h-8 bg-white/[0.05] rounded-full animate-pulse border border-white/[0.05]"></div>
+        <div className="w-full max-w-2xl h-24 sm:h-32 bg-white/[0.05] rounded-[2rem] animate-pulse border border-white/[0.05]"></div>
+        <div className="w-3/4 max-w-xl h-4 bg-white/[0.05] rounded-full animate-pulse"></div>
+        <div className="w-1/2 max-w-md h-4 bg-white/[0.05] rounded-full animate-pulse"></div>
+        
+        <div className="flex gap-4 mt-8 w-full justify-center">
+          <div className="w-48 h-14 bg-white/[0.05] rounded-2xl animate-pulse border border-white/[0.05]"></div>
+          <div className="w-48 h-14 bg-white/[0.05] rounded-2xl animate-pulse border border-white/[0.05]"></div>
+        </div>
+      </div>
+    </div>
+  );
   if (error) return <div className="min-h-screen flex items-center justify-center text-destructive">Error: {error}</div>;
 
   return (
